@@ -1,26 +1,23 @@
 # Definición de IA
 
 ---
-### Visión Artificial y Sistemas de Recomendación
+1. Visión Artificial y Sistemas de Recomendación
 Caso de Netflix y las diferentes portadas dependiendo
 de las preferencias del usuario
 
----
-### Inteligencias Artificial para las Finanzas
+2. Inteligencias Artificial para las Finanzas
 
----
-###  Inteligencias Artificial en el Comercio
+3.  Inteligencias Artificial en el Comercio
 Predicción de demanda
 Marketing y publicidad
 
----
-###  Inteligencias Artificial en las Plataformas Digitales
+4.  Inteligencias Artificial en las Plataformas Digitales
 Sugerencias de contenido 
 Personalización de la publicidad
 
----
-###  Inteligencias Artificial para Ciberseguridad
+5.  Inteligencias Artificial para Ciberseguridad
 Detección de spam
 Prevención de ataques informáticos
 
+---
 
