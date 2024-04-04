@@ -1,4 +1,4 @@
-# Definición de IA
+# Introducción a la Inteligencia Artificial
 
 ---
 1. Visión Artificial y Sistemas de Recomendación
@@ -28,3 +28,22 @@ Prevención de ataques informáticos
 4. Mejoras significativas en la algoritmia
 
 ---
+## Tipos
+
+1. IA especializada -> tareas muy particulares y con un propósito concreto
+2. IA general -> capacidad de comprender, aprender, razonar y realizar tareas de una manera equivalente a la humana
+3. IA débil -> para realizar tareas específicas pero sin una "conciencia" (Siri)
+4. IA fuerte -> capaces de emular la inteligencia humana y poseen conciencia (especulativo)
+
+---
+## Ética
+
+### Tipos de sesgos
+* En los Datos
+* Sociales
+
+### IA como ayuda a la investigación y al conocimiento
+
+Salud y Medicina
+Conducción autónoma
+Mejoras en educación
