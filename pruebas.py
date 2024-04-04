@@ -22,5 +22,5 @@ num = 11
 # cad2 = "prueba"
 # cad3 = '''Hola
 # como estás?'''
-
+# "prueba" == "prueba" -> True
 
