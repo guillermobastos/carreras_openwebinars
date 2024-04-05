@@ -53,5 +53,10 @@ Aprender -> nos referimos a que dado un objeto, el modelo es capaz de "aprender"
 Son técnicas complementarias
 
 Dos tipos de variables a predecir
-1. Cualitativas, categóricas o discretas
-2. cuantitativas, númericas o continuas
+1. Cualitativas, categóricas o discretas : calificación
+2. cuantitativas, númericas o continuas : regresión
+
+|               | Supervisado 1   | No supervisado 2                   |
+|---------------|-----------------|------------------------------------|
+| **Categórica**|  Clasificación  | Clústering                         | 
+| **Contínua**  |  Regresión      | Análisis de Componentes Principales|
