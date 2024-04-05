@@ -1,4 +1,4 @@
-# Conceptos clave en Inteligencia Artificial
+## Conceptos clave en Inteligencia Artificial
 
 IA -> es la rama de la Matemática que busca simular en ur ordenador comportamiento inteligente
 
@@ -19,6 +19,7 @@ Ejemplos: Desbloqueo facial, Predictor ortográfico
 4. Aprendizaje profundo (Deep learning)
 Este se produce a través de capas que reciben el nombre de neurona
 
+---
 ## Sistemas basados en reglas
 
 Busca realizar las tareas a partir de un conjunto finito y cerrado de reglas predefinidas
@@ -38,10 +39,19 @@ Desventajas:
 2. No son muy eficientes
 3. Mantenimiento difícil
 
-## Diagramas de flujo
+### Diagramas de flujo
 * Importante plantear todos los posibles escenarios
 * Es útil tener una respuesta especial para casos que se salen de la norma
 * Consultar con todas las partes de conocimiento implicadas
 
+---
+## Sistemas de aprendizaje automático
+Aprender -> nos referimos a que dado un objeto, el modelo es capaz de "aprender" a realizar la tarea de la manera más satisfactoria
 
+* Aprendizaje supervisado -> Aquel que parte de dato etiquetado
+* Aprendizaje no supervisado -> Aquel que parte de datos sin etiquetar, no poseen una solución prefijada
+Son técnicas complementarias
 
+Dos tipos de variables a predecir
+1. Cualitativas, categóricas o discretas
+2. cuantitativas, númericas o continuas
