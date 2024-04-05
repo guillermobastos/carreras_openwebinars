@@ -19,3 +19,29 @@ Ejemplos: Desbloqueo facial, Predictor ortográfico
 4. Aprendizaje profundo (Deep learning)
 Este se produce a través de capas que reciben el nombre de neurona
 
+## Sistemas basados en reglas
+
+Busca realizar las tareas a partir de un conjunto finito y cerrado de reglas predefinidas
+
+* Composición
+Información papra la inferencia
+Reglas basadas en conocimiento específico
+Solución para la inferencia
+
+Ventajas:
+1. Control preciso de la toma de decisiones
+2. Permite introducir excepciones para casos particulares
+3. No requieren cantidades tan grandes de datos disponibles para aprender
+
+Desventajas:
+1. No todos los problemas son codificables en reglas fáciles
+2. No son muy eficientes
+3. Mantenimiento difícil
+
+## Diagramas de flujo
+* Importante plantear todos los posibles escenarios
+* Es útil tener una respuesta especial para casos que se salen de la norma
+* Consultar con todas las partes de conocimiento implicadas
+
+
+
