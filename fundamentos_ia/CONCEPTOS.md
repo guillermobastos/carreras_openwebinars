@@ -60,3 +60,18 @@ Dos tipos de variables a predecir
 |---------------|-----------------|------------------------------------|
 | **Categórica**|  Clasificación  | Clústering                         | 
 | **Contínua**  |  Regresión      | Análisis de Componentes Principales|
+
+
+Aprendizaje por Refuerzo (Reinforicement Learning) -> aprende a realizar una serie de acciones en base a la obtención de una recompensa
+
+---
+## Aprendizaje Profundo (Deep Learning)
+Elevada precisión
+Buen funcionamiento
+Redes neuronales
+
+Selección automática de variables -> capacidad de las redes neuronales para extraer información útil del dato en bruto
+
+Dato estructurado y no estructurado
+Sobreajuste (overfitting) -> fenómeno en el mundo del Aprendizje Profundo en el que los modelos no son pcapaces de generalizar sobre datos nuevos
+Problema de la explicabilidad

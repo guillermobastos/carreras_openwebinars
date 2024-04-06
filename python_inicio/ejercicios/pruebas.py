@@ -43,3 +43,22 @@ num = 11
 #     print(var,"",end="")
 
 # -------------------------------------------------------------------
+# Ejercicio tabla de multiplicar de un número:
+
+# num = int(input("Dime el número del cual desea ver la tabla de multiplicar: "))
+# if num > 0:
+#     for var in range(1,11):
+#         print(num,"x",var,"= ",num*var)
+#         print("%2d x %2d = %2d" % (num,var,num*var))
+
+# -------------------------------------------------------------------
+# Algoritmo que muestre la tabla de multiplicar de los números 1,2,3,4 y 5
+
+# num = 1
+# while num < 6:
+#     for var in range(1,11):
+#         print("%2d x %2d = %2d" % (num,var,num*var))
+#     num+=1
+#     print()
+
+# -------------------------------------------------------------------
