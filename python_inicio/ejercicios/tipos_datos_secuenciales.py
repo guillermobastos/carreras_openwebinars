@@ -62,3 +62,5 @@ lista1 = [1,2,3]
 lista2 = lista1
 lista1.append(100)
 # A la lista2 tambien se le añade 100 ya que apuntan a la misma dirección de memoria
+# Para crear una nueva lista con los mismos elementos sería:
+lista2 = lista1[:]  
