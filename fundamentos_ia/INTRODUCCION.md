@@ -47,3 +47,47 @@ Prevención de ataques informáticos
 Salud y Medicina
 Conducción autónoma
 Mejoras en educación
+
+
+## Control de excepciones en Python
+
+Para el control de las diversas excepciones usaremos las cláusulas:
+```python
+try:
+    data = []
+    data.append(5)
+except ErrorQueQueramos: 
+```
+Tambien he visto la forma de importar clases como por ejemplo:
+
+```python
+import math
+from random import randint
+```	
+
+Saber diferenciar entre parámetros reales e informales
+```python
+def CalcularMaximo(num1, num2): # Parámetros formales
+    if num1 > num2:
+        return num1
+    else:
+        return num2
+
+numero1 = int(input("Ingrese el primer número: "))
+numero2 = int(input("Ingrese el segundo número: "))
+num_maximo = CalcularMaximo(numero1, numero2) # Parámetros reales
+print("El número máximo es: {}".format(num_maximo))
+```
+
+Funciones recursivas para llamarse a sí mismas:
+```python
+def factorial(numero):
+    if numero == 0 or numero == 1:
+        return 1
+    else:
+        return numero * factorial(numero - 1)
+```
+
+
+        
+
