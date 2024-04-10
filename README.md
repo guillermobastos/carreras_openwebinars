@@ -138,3 +138,108 @@ Prevención de ataques informáticos
 Salud y Medicina
 Conducción autónoma
 Mejoras en educación
+
+## Control de excepciones en Python
+
+Para el control de las diversas excepciones usaremos las cláusulas:
+```python
+try:
+    data = []
+    data.append(5)
+except ErrorQueQueramos: 
+```
+Tambien he visto la forma de importar clases como por ejemplo:
+
+```python
+import math
+from random import randint
+```	
+
+Saber diferenciar entre parámetros reales e informales
+```python
+def CalcularMaximo(num1, num2): # Parámetros formales
+    if num1 > num2:
+        return num1
+    else:
+        return num2
+
+numero1 = int(input("Ingrese el primer número: "))
+numero2 = int(input("Ingrese el segundo número: "))
+num_maximo = CalcularMaximo(numero1, numero2) # Parámetros reales
+print("El número máximo es: {}".format(num_maximo))
+```
+
+Funciones recursivas para llamarse a sí mismas:
+```python
+def factorial(numero):
+    if numero == 0 or numero == 1:
+        return 1
+    else:
+        return numero * factorial(numero - 1)
+```
+
+## Numpy
+
+### Estructura de los arrays
+
+```python
+import numpy as np
+array1 = np.array([1, 2, 3],dtype='int')
+rray2 = np.array([[1, 2, 3],[4, 5, 6]],dtype='int', ndmin=2)
+array3 = np.array([1,2,3], dtype='complex')
+array4 = np.zeros(10)
+array5 = np.ones(10)
+array6 = np.arange(0,10)
+print(type(array1))
+```
+
+- Uso de dtype para especificar el tipo de dato
+- ndim para decir el número mínimo de dimensiones
+- tipo = complex para el uso de números reales
+- np.zeros para rellenar un array de ceros, tantos como queramos o np.ones para la misma función pero con unos
+- Rellena un array con un rango de valores
+
+## Tipos de datos
+
+```python
+a = np.array([1, 2, 3, 4], dtype=np.int_)
+bool_array = np.array([[1,0,0,1],[0,1,1,0]], dtype=np.bool_)
+# [[ True False False  True]
+#  [False  True  True False]]
+char_array = np.array(['a', 'b', 'c', 'd'], dtype=np.chararray)
+```
+
+## Tamaños
+
+```python
+import numpy as np
+from sys import getsizeof
+
+a = np.array([1,2,3,4], dtype=np.int8)
+b = np.array([1,2,3,4], dtype=np.int64)
+dt = np.dtype('int32')
+n = np.nan
+
+# np.isnan(n) -> True
+# dt.type is np.int32 -> True
+# a.dtype is np.int8 -> False
+# a.dtype.type is np.int8 -> True
+
+print("A",getsizeof(a))
+print("B",getsizeof(b))
+```
+
+Podemos incluso añadir el valor nan a un array que creemos:
+
+```python
+array = np.array([1,2,3,4,np.nan])
+```
+
+Podemos también usar una clase específica de NumPy para manejar matrices bidimensionales como es np.matrix:
+
+```python
+m = np.matrix('1 2 3; 4 5 6', dtype=np.float16)
+a = np.array([[1,2,3],[4,5,6]],dtype=np.float16)
+Diferenciamos la forma de crear las matrices bidimensionales
+```
+
