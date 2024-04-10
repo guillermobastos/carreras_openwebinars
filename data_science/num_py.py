@@ -17,6 +17,36 @@ a = np.array([1,2,3,4], dtype=np.int8)
 b = np.array([1,2,3,4], dtype=np.int64)
 
 n = np.nan
+# --------------------------------------------------------------------
+# Indexado y recorrido de arrays
+a = np.arange(10)
+a[4]
+a.shape
+
+# Slicing
+a[0:9]
+a[0:9:2]
+a[-2:10]
+a[0:10]
+
+a = np.array([[1,2,3],[3,4,5]],dtype=np.int8)
+a[0][0] = a[0,0]
+a[1,0:2] # -> [3,4]
+
+m = np.matrix(a)
+m[0,1] + m[1,0] # = 5
+
+# Indexado booleano
+a = np.arange(10)
+a[a > 4]
+a[a % 2 == 0]
+
+# Recorrido array
+for v in a:
+    print(v)
+
+for valor in np.nditer(a):
+    print(valor)
  
 def main():
     # print(array1)
