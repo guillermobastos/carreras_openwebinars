@@ -80,6 +80,24 @@ np.datetime64("2020-03-14T11") == np.datetime64("2020-03-14T11:00:00.00")  # Fal
 # Operaciones con fechas
 np.timedelta64(4, "D")
 np.timedelta64(10, "h")
+a = np.timedelta64(8, "D")
+np.timedelta64(a, "W")
+# -> numpy.timedelta64(1,'W')
+np.datetime64("2020-08-01") - np.datetime64("2020-07-01")  # -> numpy.datetime64(31,'D')
+np.timedelta64(1, "W") + np.timedelta64(4, "D")  # -> numpy.timedelta64(11,'D')
+np.busday_offset("2024-04-11", 2)
+np.busday_count(np.datetime64("2024-04-11"), np.datetime64("2024-06-18"))
+
+# Constantes
+np.inf > 100000000000000  # True
+np.inf + np.inf  # Output = inf
+np.NINF # Output = -inf
+np.inf + np.NINF  # Output = nan
+np.nan # Output = nan
+np.NZERO  # Output = -0.0
+np.PZERO  # Output = 0.0
+np.NZERO + np.PZERO  # Output = 0.0
+np.pi # Output = 3.14159.....
 
  
 def main():
