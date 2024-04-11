@@ -243,3 +243,45 @@ a = np.array([[1,2,3],[4,5,6]],dtype=np.float16)
 Diferenciamos la forma de crear las matrices bidimensionales
 ```
 
+## Máscaras para crear una matriz con elementos ocultos(enmascarados)
+Algunos ejemplos:
+```python
+x = np.array([1, 2, 3, -1, 4])
+mask_array = ma.masked_array(x, mask=[0, 0, 0, 1, 0])  # -> [1 2 3 -- 4]
+x = ma.masked_array(x, mask=[0, 0, 0, 1, 0])
+x.compressed()  # -> [1 2 3 4] sin los datos enmascarados
+x.mask = True  # -> enmascara todos los datos
+x.mask = False  # -> desenmascara todos los datos
+x = np.array([1, 2, 3, -1, 4])
+ma.masked_equal(x, 4)  # Enmascara los valores 4
+ma.masked_where(
+    x > 4, x
+)  # Enmascara los valores mayores a 4, añades tu la condción que quieras
+```
+
+## Trabajando con fechas 
+```python
+d = np.datetime64(
+    "2000-01-01"
+)  # -> Si pones una fecha incorrecta, se genera un ValueError
+dh = np.datetime64("2000-01-01T14:30")
+```
+
+Array de fechas:
+```python
+np.array(["2020-07-01", "2020-08-01", "2020-09-01"])
+np.array(["2020-07-01", "2020-08-01", "2020-09-01"], dtype="datetime64")
+np.arange("2020-07", "2020-09", dtype="datetime64[W]")  # Para semanas
+```
+
+Comparaciones:
+```python
+np.datetime64("2020") == np.datetime64("2020-07-01")  # True
+np.datetime64("2020-03-14T11") == np.datetime64("2020-03-14T11:00:00.00")  # False
+```
+
+Operaciones con fechas:
+```python
+np.timedelta64(4, "D")
+np.timedelta64(10, "h")
+```
