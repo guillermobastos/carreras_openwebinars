@@ -1,5 +1,5 @@
 import numpy as np
-
+# Ejercicios II
 # Ejercicio 1
 print("Ejercicio 1")
 m = np.linspace(start=0, stop=100, num=25,endpoint=False).reshape(5,5)
@@ -46,3 +46,29 @@ ad = np.linalg.det(a)
 print(ad)
 y = np.array([3,2,5])
 print(np.linalg.solve(a,y))
+
+
+# ----------------------------------------------------------------
+
+# Ejercicio III
+# ----------------------------------------------------------------
+# Ejercicio 1
+print("Ejercicio 1")
+a = np.array([2, 5, 4, 2, 49, 34, 59, 21, 45, 6, 105])
+print(np.any(a % 7 == 0))
+res = a[np.logical_or(a % 7 == 0 , a < 40)]
+print(res)
+
+# ----------------------------------------------------------------
+# Ejercicio 2
+print("Ejercicio 2")
+print(np.prod(res))
+m = res.reshape(3, 3)
+print(m)
+
+# ----------------------------------------------------------------
+# Ejercicio 3
+print("Ejercicio 3")
+a = np.array([0,3,5])
+d = np.divide(m,a)
+np.max(d)
