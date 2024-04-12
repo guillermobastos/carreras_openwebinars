@@ -285,3 +285,29 @@ Operaciones con fechas:
 np.timedelta64(4, "D")
 np.timedelta64(10, "h")
 ```
+
+## Operaciones con cadenas
+Hemos visto las funciones de añadir .add(), multiplicar, multiply(), el dtype dependiendo del tamaño de la string.
+Por lo general son funciones ya vistas en otros lenguajes pero en este caso usando la librería de numpy y en concreto el submódulo
+np.char 
+Un par de ejemplos serían:
+
+```python
+a = np.array(['A','B','C'],dtype = np.str_)
+b = np.array(['D','E','F'],dtype = np.str_)
+np.char.add(a,b)
+# Output -> array(['AD', 'BE', 'CF'], dtype='<U2')
+nombre = np.array(['Mi nombre es Guillermo Bastos'])
+np.char.split(nombre, sep=' ')
+# Output -> array([list(['Mi', 'nombre', 'es', 'Guillermo', 'Bastos'])], dtype=object)
+```
+
+## Álgebra lineal 
+En este caso hemos usados funciones propias de la librería de numpy nuevamente pero para el cálculo de diferentes funciones en matrices:
+
+```python
+a = np.array([[3,2],[1,3]])
+b = np.array([[2,2],[1,2]])
+np.dot(a,b) # Para calcular el producto
+np.inner(a,b) # Para calcular el producto interno en este caso
+```
