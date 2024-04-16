@@ -351,4 +351,60 @@ y: datos del "target" de n filas y 1 columnam, todo numérico
 
 ### Pipeline
 * Secuencia de pasos que se utilizan para procesar y transformar datos, así como para entrenar y evaluar modelos de aprendizaje automático de manera sistemática y eficiente
-* El pipeline de sklearn es una herramienta fundamental para mejorar el proceso de preparación. 
+* El pipeline de sklearn es una herramienta fundamental para mejorar el proceso de preparación.
+
+---
+
+### Qué es un modelo en Sklearn?
+* Es la implementación del algoritmo que aprende a predecir nuetro target basándose en los features
+* Cada modelo tienes sus propios hiperparámetros y manera de funcionar, pero el input y output es casi igual
+
+### Generalized Linear Models (Modelos Lineales Generalizados)
+* Los más comunes son la regresión lineal y la regresión lógica
+* Útiles por su interpretabilidad
+
+### SVM Support Vector Machines (Máquinas de Vectores de Soporte)
+* Otros modelos muy clásicos que buscan separar los datos, con implementación para clasificación y regresión
+* Su objetivo principal es encontrar un hiperplano en un espacio de características que separe de manera óptima las clases de datos.
+* Lo más importante es optimizar el kernel y regularización
+
+```python
+from sklearn.svm import SVR
+from sklearn.svm import SVC
+from sklearn.preproccesing import StandardScaler
+from sklearn.pipline import Pipeline
+
+...
+
+clas_svm_kernel_model = Pipeline(
+    [
+        ('scaler',StandardScaler()),
+        ('svm',SVC(kernel='linear'))
+    ]
+)
+
+clas_svm_kernel_model.fit(X_variables, train[y_variable_reg])
+test['predictions_svm_kernel_clas'] = clas_svm_kernel_model.predict(test[X_variables])
+```
+
+### Modelos basados en árboles
+* Populares por su flexibilidad antes muchos problemas
+* La base de todo es el "CART" pero nuevos algoritmos aprovechan el "ensembling" para mejorar los resultados
+
+```python
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeClassifier
+
+X_variables = ['followers', 'retweet', 'video','tweets','likes','following','media','verified','day','hour']
+
+reg_tree_model = DecisionTreeRegressor(random_state=0)
+reg_tree_model.fit(train[X_variables], train[y_variable_reg])
+test['predictions_tree_reg'] = reg_tree_model.predict(test[X_variables])
+
+clas_tree_model = DecisionTreeClassifier(random_state=0)
+clas_tree_model.fit(train[X_variables], train[y_variable_reg])
+test['predictions_tree_clas'] = clas_tree_model.predict(test[X_variables])
+
+test[[y_variable_reg, 'predictions_lin_reg','predictions_tree_reg']]
+
+```
