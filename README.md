@@ -311,3 +311,44 @@ b = np.array([[2,2],[1,2]])
 np.dot(a,b) # Para calcular el producto
 np.inner(a,b) # Para calcular el producto interno en este caso
 ```
+---
+## Método supervisado con Scikit-learn
+
+* Como entrenar un modelo
+* Los pasos previos al entrenamiento
+* Los modelos que tenemos disponibles
+* La evaluación de los resultados
+* Como optimizar los modelos
+
+1. OBJETIVOS
+* Ejecutar el flujo completo del entrenamiento de un modelo
+* Explotar el ecosistema del scikit-learn para este proceso mejor
+
+### Introducción
+
+1. Razones de uso
+* Librería que establece un framework para crear flujos de la creación de algoritmos de Machine Learning
+* Unifica un campo muy diverso y abstrae las dificultades de cada algoritmo
+
+### Sintaxis básico de scikit-learn
+El entrenamiento de un modelo supervisado siempre sigue el mismo patrón:
+
+my_model = SomeModel()
+my_model.fit(X_train, y_train)
+my_model.predict(X_test)
+
+### Preparar los datos
+* Siempre necesitamos:
+X: datos de los "features" de n filas y m columnas, todos datos numéricos
+y: datos del "target" de n filas y 1 columnam, todo numérico
+
+### Antes de entrenar hay algunos pasos previos
+* Todas las transformaciones que podemos hacer con sklearn se pueden hacer en Pandas
+* Es común hacer la parte exploratoria en Pandas y explotar sklearn para construir el flujo completo de entrenamiento
+
+### Dividir en Train y Test
+* Ya que no queremos que influyan los datos "no vistos" en el diseño de los pasos de preparación
+
+### Pipeline
+* Secuencia de pasos que se utilizan para procesar y transformar datos, así como para entrenar y evaluar modelos de aprendizaje automático de manera sistemática y eficiente
+* El pipeline de sklearn es una herramienta fundamental para mejorar el proceso de preparación. 
