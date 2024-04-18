@@ -404,7 +404,121 @@ test['predictions_tree_reg'] = reg_tree_model.predict(test[X_variables])
 clas_tree_model = DecisionTreeClassifier(random_state=0)
 clas_tree_model.fit(train[X_variables], train[y_variable_reg])
 test['predictions_tree_clas'] = clas_tree_model.predict(test[X_variables])
-
 test[[y_variable_reg, 'predictions_lin_reg','predictions_tree_reg']]
+```
+---
 
+## DataFrames con Pandas Introducción
+
+- Concatenting
+- Group by
+- Merging and join
+- Presentación y resolución de ejercicios
+
+## Missing Data
+
+### Valores perdidos o vacíos
+
+Qué podemos hacer?
+
+- Exclusión de las filas o columnas que contengan valores periddos en nuestros análisis
+- Sustitución de estos valores por uno fijo
+- Sustitución de los valores por la media, mediana o moda de la variable
+
+Ejemplos:
+
+```python
+import pandas as pd
+import numpy as np
+d = {'A':[1,2,np.nan], 'B':[5,np.nan,np.nan], 'C':[1,2,3]}
+df = pd.DataFrame(d)
+```
+
+Borramos por defecto todas las filas que contengan valores NaN:
+```python
+df.dropna()
+```
+
+Borramos todas las columnas que contengan NaN:
+```python
+df.dropna(axis=1)
+```
+Utilizamos el parámetro de la función dropna thresh
+Si solo queremos borrar las filas que tengan 2 o más valores nulos, utilizamos este parámetro:
+```python
+df.dropna(thresh=2)
+```
+
+Queremos susituir los valores nulos:
+```python
+df.fillna(value = 'Hello world')
+```
+Normalmente algunos valores podemos susituirlos por la media y de esta manera no perder los datos:
+```python
+df['A'].fillna(value = df['A'].mean())
+```
+
+## Concatenación
+
+Es una operación común en pandas que te permite combinar varios DataFrames en uno solo, ya sea apilando verticalmente (a lo largo del eje de las filas) o horizontalmente (a lo largo del eje de las columnas). 
+
+Veamos un ejemplo:
+```python
+import pandas as pd
+
+# Supongamos que tenemos dos DataFrames df1 y df2
+df1 = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+df2 = pd.DataFrame({'A': [7, 8, 9], 'B': [10, 11, 12]})
+
+# Concatenar verticalmente (a lo largo del eje de las filas)
+concatenated_df = pd.concat([df1, df2])
+```
+
+## Merging and Join
+Son funciones que se utilizan para combinar DataFrames en función de las relaciones entre las columnas de los DataFrames
+
+* La función merge() se utiliza para combinar DataFrames en función de las coincidencias encontradas en una o más columnas clave
+Ejemplo:
+```python
+import pandas as pd
+
+df1 = pd.DataFrame({'key': ['A', 'B', 'C', 'D'], 'value': [1, 2, 3, 4]})
+df2 = pd.DataFrame({'key': ['B', 'D', 'E', 'F'], 'value': [5, 6, 7, 8]})
+
+merged_df = pd.merge(df1, df2, on='key')
+```
+
+* La función join() se utiliza para combinar DataFrames en función de sus índices
+Ejemplo:
+```python	
+import pandas as pd
+
+df1 = pd.DataFrame({'value1': [1, 2, 3]}, index=['A', 'B', 'C'])
+df2 = pd.DataFrame({'value2': [4, 5, 6]}, index=['B', 'C', 'D'])
+
+joined_df = df1.join(df2, how='inner')
+```
+
+## Group by
+Se utiliza para dividir un DataFrame en grupos basados en algún criterio y luego aplicar una función a cada grupo de forma independiente.
+Esta función se usa comúnmente en combinación con otras funciones de agregación, como sum(), mean(), count(), etc.
+
+Ejemplo:
+```python
+import pandas as pd
+
+data = {
+    'Producto': ['A', 'B', 'A', 'B', 'A'],
+    'Tienda': ['X', 'Y', 'X', 'Y', 'Z'],
+    'Ventas': [100, 200, 150, 300, 250]
+}
+ventas = pd.DataFrame(data)
+# Suma de ventas de por producto
+ventas_por_producto = ventas.groupby('Producto')['Ventas'].sum()
+
+# Agrupamos por 'Tienda' y calculamos el promedio de ventas
+ventas_promedio_por_tienda = ventas.groupby('Tienda')['Ventas'].mean()
+
+# Agrupamos por 'Producto' y 'Tienda' y contamos las ventas
+ventas_por_producto_y_tienda = ventas.groupby(['Producto', 'Tienda']).size()
 ```
