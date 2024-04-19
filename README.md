@@ -522,3 +522,71 @@ ventas_promedio_por_tienda = ventas.groupby('Tienda')['Ventas'].mean()
 # Agrupamos por 'Producto' y 'Tienda' y contamos las ventas
 ventas_por_producto_y_tienda = ventas.groupby(['Producto', 'Tienda']).size()
 ```
+---
+
+## Matplotlib
+
+Biblioteca de Python para crear visualizaciones estáticas, interactivas y animadas de datos.
+
+Objetivos:
+
+1. Facilitar la creación de visualizaciones
+2. Ofrecer flexibilidad:
+3. Soportar múltiples formatos de salida
+
+Ejemplos de uso:
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+import warnings
+warnings.filterwarnings('ignore')
+
+from pathlib import Path
+
+data_path = Path('../data')
+
+%matplotlib inline
+
+data = pd.read_csv(data_path / 'house.csv')
+
+fig, ax = plt.subplots(figsize = (10,6))
+
+x = np.arange(5)
+y = np.cos(x)
+
+ax.plot(x, y)
+ax.set(xlabel = 'Valores X', ylabel = 'Cos(x)', title = 'Cos de valores')
+```
+
+---
+
+## Seaborn
+
+Biblioteca de visualización de datos en Python que se basa en Matplotlib y proporciona una interfaz de alto nivel para crear visualizaciones estadísticas atractivas y informativas
+
+Objetivos:
+
+1. Facilitar la creación de visualizaciones estadísticas
+2. Promover buenas prácticas de visualización
+3. Integración con DataFrames de Pandas
+
+Ejemplos de uso:
+
+```python
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import warnings
+warnings.filterwarnings('ignore')
+data = sns.load_dataset('titanic')
+
+sns.catplot(x = 'pclass', y = 'age', data = data, height=7, palette='husl')
+```
+
+
