@@ -588,5 +588,112 @@ data = sns.load_dataset('titanic')
 
 sns.catplot(x = 'pclass', y = 'age', data = data, height=7, palette='husl')
 ```
+---
+## Clusterización con KMeans
 
+### Visualizar los resultados - KMeans
+
+- Para evaluar los resultados es my útil visualizar
+  los clusters
+- Importante combinar la predicción del modelo con alguna librería de visualización
+
+```python
+graph = (
+    pn.ggplot(user_stats, pn.aes(x='followers', y='following', color='predictions_kmeans_3'))
+    + pn.geom_point()
+    + pn.scale_x_continuous(trans='log')
+    + pn.scale_y_continuous(trans='log')
+)
+
+graph.draw()
+```
+
+![avatar](/img/foto_visualizacion_01.png)
+
+- Si tenemos varias variables tenemos que elgir algunos ejes para poder ver le gráfico
+
+```python
+graph = (
+    pn.ggplot(user_stats, pn.aes(x='followers', y='following', color='predictions_kmeans_10'))
+    + pn.geom_point()
+    + pn.scale_x_continuous(trans='log')
+    + pn.scale_y_continuous(trans='log')
+)
+graph.draw()
+```
+
+![avatar](/img/foto_visualizacion_02.png)
+
+---
+
+### Evaluando resultados
+
+- Para una evaluación más rigurosa es importante tirar de las métricas de evaluación para entender:
+
+  1.  Cómo de puros están los clustters
+  2.  Cómo de alejados está uno del otro
+
+- También tenemos que elegir el número óptimo de clusters: `Método del codo`
+
+```python
+results = []
+for n_clusters in range(3, 15):
+    model = KMeans(n_clusters=n_clusters, random_state=0)
+    model.fit(user_stats[X_variables])
+    results.append({"num_clusters": n_clusters, "inertia": model.inertia_})
+```
+
+---
+
+## Preparando los datos para KMeans
+
+### La preparación típica
+
+- El requisito básico es un conjunto de datos numéricos
+- Normalmente se trabaja con variables continuas para conseguir los mejores resultados
+- Si incluimos variables no numericas producimos un error! Para evitar esto tenemos que transformar el campo a un dato numérico
+
+Pipeline:
+
+1. Es una herramienta fundamental para mejorar el proceso de preparación
+2. Es una manera flexible de crear flujos de diferentes pasos de preparación
+   que luego podemos optimiza y ejecutar sobre nuevos datos
+
+- En resumen -> serie de pasos con nombres que se ejecutan al ejecutar el pipeline.
+
+### Eligiendo las varibles
+
+#### Parte I
+
+Cómo elegir las mejores variables?
+
+- Al ser Kmeans muy sensible a los datos entonces hay que escoger la mejores variables
+- Buscar pocas variables con poca correlación entre ellas
+
+#### Parte II
+
+- Kmeans depende de distancias por lo que es fundamental que las variables estén en la misma escala
+- Hay varias maneras y es interesante aprovechar los pipelines para crear procesos mejores
+
+### Otros algoritmos para la clusterización
+
+- Kmeans tiene algunas debilidades:
+
+  1. Tenemos que decidir cuántos grupos existen
+  2. Prefiere variables continuas ante categóricas
+
+Vamos a ver dos alternativas populares:
+
+#### DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+
+- Algoritmo que busca zonas de alta densidad de puntos sin necesidad de
+  especificar cuántas zonas tienen que existir
+- Los parámetros claves son los que definen lo que es alta densidad
+
+#### Clusterización jeráriquica
+
+- De forma progresiva, divide los datos en grupos
+- La implementación en sklearn unifica parejas de datos, formando grupos de
+  "abajo/arriba"
+- Fáciles de visualizar
 
