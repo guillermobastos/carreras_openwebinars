@@ -310,3 +310,141 @@ if __name__ == "__main__":
 ```
 
 <figure><img src=".gitbook/assets/modelos_reduccion_dimensiones.png" alt=""><figcaption></figcaption></figure>
+
+### Paso 4: Aplicar el Modelo SVM (Support Vector Machine)
+
+Es un algoritmo de aprendizaje supervisado utilizado para la clasificación y regresión. Su objetivo principal es encontrar el hiperplano óptimo que mejor separa las diferentes clases en un conjunto de datos. En el contexto de clasificación, un hiperplano es una superficie que divide un espacio de características en regiones que corresponden a diferentes clases.
+
+```python
+def prueba_3d_svm_03():
+    # Aplica PCA para reducir la dimensionalidad a 3 dimensiones
+    pca = PCA(n_components=3)
+    X_pca = pca.fit_transform(X)
+
+    # Aplica KMeans para agrupar los datos
+    kmeans = KMeans(n_clusters=3, random_state=0)
+    clusters = kmeans.fit_predict(X_pca)
+    centroids_pca = kmeans.cluster_centers_
+    svm_model = SVC(kernel='linear')  
+    svm_model.fit(X_pca, clusters)
+    # y_pred = svm_model.predict(X_pca)
+
+
+   # Crear la figura para los subgráficos 3D
+    fig = plt.figure(figsize=(16, 5))
+
+    # Iterar sobre cada subgráfico
+    for i in range(3):
+        # Crear el subgráfico
+        ax = fig.add_subplot(1, 3, i+1, projection='3d')
+
+        # Filtrar los puntos por clúster
+        cluster_mask = clusters == i
+
+        # Graficar los datos correspondientes al clúster actual
+        ax.scatter(
+            X_pca[cluster_mask, 0],
+            X_pca[cluster_mask, 1],
+            X_pca[cluster_mask, 2],
+            c=[cmap(i)],
+            label=f"Cluster {i+1}"
+        )
+
+        # Visualizar el hiperplano de decisión
+        xx, yy = np.meshgrid(np.linspace(X_pca[cluster_mask, 0].min(), X_pca[cluster_mask, 0].max(), 50),
+                             np.linspace(X_pca[cluster_mask, 1].min(), X_pca[cluster_mask, 1].max(), 50))
+        zz = (-svm_model.intercept_[i] - svm_model.coef_[i][0] * xx - svm_model.coef_[i][1] * yy) / svm_model.coef_[i][2]
+        ax.plot_surface(xx, yy, zz, color='blue', alpha=0.3, label='Hiperplano de decisión')
+
+        # Centroides
+        ax.scatter(
+            centroids_pca[:, 0],
+            centroids_pca[:, 1],
+            centroids_pca[:, 2],
+            marker="o",
+            s=200,
+            c="red",
+            label="Centroides (PCA)",
+        )
+
+        # Etiquetas y título
+        ax.set_xlabel("Componente 1")
+        ax.set_ylabel("Componente 2")
+        ax.set_zlabel("Componente 3")
+        ax.set_title(f"Cluster {i+1}")
+
+    # Ajustar la disposición de los subgráficos
+    plt.tight_layout()
+
+
+def prueba_3d_svm_01():
+    # Aplica PCA para reducir la dimensionalidad a 3 dimensiones
+    pca = PCA(n_components=3)
+    X_pca = pca.fit_transform(X)
+
+    # Aplica KMeans para agrupar los datos
+    kmeans = KMeans(n_clusters=3, random_state=0)
+    clusters = kmeans.fit_predict(X_pca)
+    centroids_pca = kmeans.cluster_centers_
+    svm_model = SVC(kernel='linear')  
+    svm_model.fit(X_pca, clusters)
+    # y_pred = svm_model.predict(X_pca)
+    
+    # Crear la figura para el gráfico 3D
+    fig = plt.figure(figsize=(12, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Iterar sobre cada clúster
+    for i in range(3):
+        # Filtrar los puntos por clúster
+        cluster_mask = clusters == i
+
+        # Graficar los datos correspondientes al clúster actual
+        ax.scatter(
+            X_pca[cluster_mask, 0],
+            X_pca[cluster_mask, 1],
+            X_pca[cluster_mask, 2],
+            c=[cmap(i)],
+            label=f"Cluster {i+1}"
+        )
+
+        # Visualizar el hiperplano de decisión
+        xx, yy = np.meshgrid(np.linspace(X_pca[:, 0].min(), X_pca[:, 0].max(), 50),
+                             np.linspace(X_pca[:, 1].min(), X_pca[:, 1].max(), 50))
+        zz = (-svm_model.intercept_[i] - svm_model.coef_[i][0] * xx - svm_model.coef_[i][1] * yy) / svm_model.coef_[i][2]
+        ax.plot_surface(xx, yy, zz, color=cmap(i), alpha=0.3, label=f'Hiperplano de decisión Cluster {i+1}')
+
+    # Graficar los centroides
+    ax.scatter(
+        centroids_pca[:, 0],
+        centroids_pca[:, 1],
+        centroids_pca[:, 2],
+        marker="o",
+        s=200,
+        c="red",
+        label="Centroides (PCA)",
+    )
+
+    # Etiquetas y título
+    ax.set_xlabel("Componente 1")
+    ax.set_ylabel("Componente 2")
+    ax.set_zlabel("Componente 3")
+    ax.set_title("Plano de Decisión y Centroides (PCA) en 3D")
+
+    # Mostrar la leyenda
+    ax.legend()
+
+def main():
+    prueba_3d_svm_01()
+    prueba_3d_svm_03()
+    plt.show()
+    
+    
+if __name__ == "__main__":
+    main()
+```
+
+<figure><img src=".gitbook/assets/svm_3d_01.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/svm_3d_03.png" alt=""><figcaption></figcaption></figure>
+
