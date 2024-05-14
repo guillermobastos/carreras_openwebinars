@@ -311,7 +311,7 @@ if __name__ == "__main__":
 
 <figure><img src=".gitbook/assets/modelos_reduccion_dimensiones.png" alt=""><figcaption></figcaption></figure>
 
-### Paso 4: Aplicar el Modelo SVM (Support Vector Machine)
+## Paso 4: Aplicar el Modelo SVM (Support Vector Machine)
 
 Es un algoritmo de aprendizaje supervisado utilizado para la clasificación y regresión. Su objetivo principal es encontrar el hiperplano óptimo que mejor separa las diferentes clases en un conjunto de datos. En el contexto de clasificación, un hiperplano es una superficie que divide un espacio de características en regiones que corresponden a diferentes clases.
 
