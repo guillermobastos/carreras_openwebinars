@@ -1,17 +1,17 @@
 # Categorización tipos de aguas
 
-## Paso 1: Agrupación tablas con Python y libería Pandas
+## Paso 1: Agrupación tablas con Python y libería Pandas&#x20;
 
 Ejemplos de uso:
 
 ```python
 import pandas as pd
 
-df_temp_salin_2002_06 = pd.read_excel("C:/Users/guille/Documents/hechos/TempSalin_2002_06_V4.xlsx")
-df_temp_salin_2006_12 = pd.read_excel("C:/Users/guille/Documents/hechos/TempSalin_2006_12_V4.xlsx")
-df_afloramiento = pd.read_excel("C:/Users/guille/Documents/hechos/Afloramiento_2002_2012.xlsx")
-df_nutrientes = pd.read_excel("C:/Users/guille/Documents/hechos/Nutrientes.xlsx")
-df_pn_gc = pd.read_excel("C:/Users/guille/Documents/hechos/PseudoNitzschia_GymnodiniumCatenatum.xlsx")
+df_temp_salin_2002_06 = pd.read_excel("C:/Users/usuario/Documents/hechos/TempSalin_2002_06_V4.xlsx")
+df_temp_salin_2006_12 = pd.read_excel("C:/Users/usuario/Documents/hechos/TempSalin_2006_12_V4.xlsx")
+df_afloramiento = pd.read_excel("C:/Users/usuario/Documents/hechos/Afloramiento_2002_2012.xlsx")
+df_nutrientes = pd.read_excel("C:/Users/usuario/Documents/hechos/Nutrientes.xlsx")
+df_pn_gc = pd.read_excel("C:/Users/usuario/Documents/hechos/PseudoNitzschia_GymnodiniumCatenatum.xlsx")
 
 
 df_merged_02_06 = (
@@ -20,7 +20,7 @@ df_merged_02_06 = (
     .merge(df_pn_gc, on=['Dia','Mes','Ano'])
     .drop_duplicates(subset=['Dia','Mes','Ano'])
     # .dropna(how='any')
-    .to_excel("C:/Users/guille/Documents/hechos/Tabla_Final_02_06.xlsx", index=False)
+    .to_excel("C:/Users/usuario/Documents/hechos/Tabla_Final_02_06.xlsx", index=False)
 )
 
 df_merged_06_12 = (
@@ -29,11 +29,17 @@ df_merged_06_12 = (
     .merge(df_pn_gc, on=['Dia','Mes','Ano'])
     .drop_duplicates(subset=['Dia','Mes','Ano'])
     .dropna(how='any')
-    .to_excel("C:/Users/guille/Documents/hechos/Tabla_Final_06_12.xlsx", index=False)
+    .to_excel("C:/Users/usuario/Documents/hechos/Tabla_Final_06_12.xlsx", index=False)
 )  
 
 df_concatendas = pd.concat([df_merged_02_06, df_merged_06_12], ignore_index=True).to_excel("C:/Users/guille/Documents/hechos/Tabla_Final_Concatenadas.xlsx", index=False)
 ```
+
+En este caso tenemos varias tablas de datos de diferentes tramos de años (2002-2006 // 2006-2012).&#x20;
+
+1. En primer lugar importamos la librería pandas para leer las hojas de Excel
+2. Después creamos un dataframe para cada periodo de años y juntamos los distintos dataframes en base al Dia, Mes y Año
+3. Finalmente concatenamos tanto df\_merged\_02\_06 con df\_merged\_06\_12 en una sola y respetando el orden&#x20;
 
 ## Paso 2: Obtención columnas deseadas
 
@@ -44,7 +50,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-df = pd.read_excel("C:/Users/guille/Documents/Clusters/Tablas/Tabla_Sin_Vacios.xlsx")
+df = pd.read_excel("C:/Users/usuario/Documents/Clusters/Tablas/Tabla_Sin_Vacios.xlsx")
 df = df.dropna()
 # Instanciar el transformador
 scaler = StandardScaler()
@@ -69,6 +75,13 @@ X = df[
 cmap = plt.get_cmap("tab10")
 ```
 
+Ahora vamos a coger de la tabla de abajo las columnas que nos interesen para trabajar con ellas
+
+1. Importamos las librerías necesarias
+2. Creamos el df leyendo la tabla de Excel y eliminamos las filas con algun valor null con la función dropna()
+3. En este caso normalizamos los valores de UI debido a sus valores y para que tengan un mejor ajuste
+4. Y finalmente cogemos las columnas necesarias
+
 <figure><img src=".gitbook/assets/columnas_tabla.png" alt=""><figcaption></figcaption></figure>
 
 ## Paso 3: Aplicación de diferentes métodos de reducción de dimensionalidad
@@ -86,7 +99,8 @@ def pca_01():
     clusters = kmeans.fit_predict(X_pca)
     centroids_pca = kmeans.cluster_centers_
 
-    indice_PSEUSPP = df.columns.get_loc("PSEUSPP")
+    # Cogemos los índices de las columnas PSEUSPP y GYMNCATE
+    indice_PSEUSPP = df.columns.get_loc("PSEUSPP") 
     indice_GYMNCATE = df.columns.get_loc("GYMNCATE")
 
     conteos_cluster_PSEUSPP = [0] * 3
@@ -94,37 +108,43 @@ def pca_01():
     porcentajes = []
     total_PSEUSPP = 0
     total_GYMNCATE = 0
+    
     # Iterar sobre cada cluster
     for i in range(3):
         # Obtener los índices de las filas en X correspondientes al cluster i
         indices_cluster_i = np.where(clusters == i)[0]
-
+        
+        # Recogemos todos los valores de las columnas PSEUSPP y GYMNCATE 
         valores_cluster_PSEUSPP = df.iloc[indices_cluster_i, indice_PSEUSPP].values
         valores_cluster_GYMNCATE = df.iloc[indices_cluster_i, indice_GYMNCATE].values
         
+        # Contamos cuántas veces los valores de PSEUSPP y GYMNCATE son mayores que 0
         conteos_cluster_PSEUSPP[i] = np.sum(valores_cluster_PSEUSPP > 0)
-        conteos_cluster_GYMNCATE[i] = np.sum(valores_cluster_GYMNCATE > 0)   
+        conteos_cluster_GYMNCATE[i] = np.sum(valores_cluster_GYMNCATE > 0) 
+      
+        # Vamos acumulando todos los conteos para ambas columnas  
         total_PSEUSPP += conteos_cluster_PSEUSPP[i]
         total_GYMNCATE += conteos_cluster_GYMNCATE[i]
 
     for i in range(3):
+        #Calculamos el % en relación al total 
         porcentaje_PSEUSPP = (conteos_cluster_PSEUSPP[i]/total_PSEUSPP) * 100
         porcentaje_GYMNCATE = (conteos_cluster_GYMNCATE[i]/total_GYMNCATE) * 100
 
         porcentajes.append((porcentaje_PSEUSPP, porcentaje_GYMNCATE))
-    
-    print("Modelo PCA -> GYMNCATE",conteos_cluster_GYMNCATE)
-    print("Modelo PCA -> PSEUSPP",conteos_cluster_PSEUSPP)
         
+    # Obtenemos el número de clusters en relación al número de porcentajes en este caso    
     num_clusters = len(porcentajes)
+    # Creamos una lista con valores desde el 0 al número de clusters - 1
     x = np.arange(num_clusters)
 
-    # Nombres de las etiquetas de los clusters
+    # Nombres de las etiquetas de cada uno de los clusters
     labels = [f'Cluster {i+1}' for i in range(num_clusters)]
 
     # Ancho de las barras
     width = 0.35
     
+    # Obtenemos los valores de los porcentajes en cada columna
     porcentaje_PSEUSPP = [p[0] for p in porcentajes]
     porcentaje_GYMNCATE = [p[1] for p in porcentajes]
 
@@ -139,19 +159,21 @@ def pca_01():
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     
+    # Establecemos el valor mínimo y máximo además del intervalo de las lineas 
+    # del eje Y
     yticks_interval = 20
     ylim_min = 0
     ylim_max = 100
     ax.set_yticks(np.arange(ylim_min, ylim_max + yticks_interval, yticks_interval))
 
-    # Agregar etiquetas en los ticks del eje y con los valores exactos de cada porcentaje
+    # Agregar etiquetas en los ticks del eje y con los valores exactos 
+    # de cada porcentaje
     for i in range(num_clusters):
         ax.text(x[i] - width/3, porcentaje_PSEUSPP[i] + 1, f'{porcentaje_PSEUSPP[i]:.2f}%', ha='center')
         ax.text(x[i] + width/3, porcentaje_GYMNCATE[i] + 1, f'{porcentaje_GYMNCATE[i]:.2f}%', ha='center')
         
     ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    
     
     # Crear gráfica 3D
     fig = plt.figure()
@@ -167,7 +189,8 @@ def pca_01():
             c=[cmap(i)],
             label=f"Cluster {i+1}",
         )
-        
+     
+    # Aqui dibujamos los centroides   
     ax.scatter(
         centroids_pca[:, 0],
         centroids_pca[:, 1],
@@ -177,7 +200,8 @@ def pca_01():
         c="red",
         label="Centroides (PCA)",
     )
-
+    
+    # Establecemos las etiquetas y el título
     ax.set_xlabel("Componente1")
     ax.set_ylabel("Componente2")
     ax.set_zlabel("Componente3")
@@ -198,6 +222,7 @@ def tsne_01():
     clusters = kmeans.fit_predict(X_tsne)
     centroids_pca = kmeans.cluster_centers_
 
+    # Cogemos los índices de las columnas PSEUSPP y GYMNCATE
     indice_PSEUSPP = df.columns.get_loc("PSEUSPP")
     indice_GYMNCATE = df.columns.get_loc("GYMNCATE")
 
@@ -212,32 +237,37 @@ def tsne_01():
         # Obtener los índices de las filas en X correspondientes al cluster i
         indices_cluster_i = np.where(clusters == i)[0]
 
+        # Recogemos todos los valores de las columnas PSEUSPP y GYMNCATE 
         valores_cluster_PSEUSPP = df.iloc[indices_cluster_i, indice_PSEUSPP].values
         valores_cluster_GYMNCATE = df.iloc[indices_cluster_i, indice_GYMNCATE].values
         
+         # Contamos cuántas veces los valores de PSEUSPP y GYMNCATE son mayores que 0
         conteos_cluster_PSEUSPP[i] = np.sum(valores_cluster_PSEUSPP > 0)
         conteos_cluster_GYMNCATE[i] = np.sum(valores_cluster_GYMNCATE > 0)   
+        
+         # Vamos acumulando todos los conteos para ambas columnas 
         total_PSEUSPP += conteos_cluster_PSEUSPP[i]
         total_GYMNCATE += conteos_cluster_GYMNCATE[i]
 
     for i in range(3):
+        #Calculamos el % en relación al total
         porcentaje_PSEUSPP = (conteos_cluster_PSEUSPP[i]/total_PSEUSPP) * 100
         porcentaje_GYMNCATE = (conteos_cluster_GYMNCATE[i]/total_GYMNCATE) * 100
 
         porcentajes.append((porcentaje_PSEUSPP, porcentaje_GYMNCATE))
 
-    print("Modelo t-SNE -> GYMNCATE",conteos_cluster_GYMNCATE)
-    print("Modelo t-SNE -> PSEUSPP",conteos_cluster_PSEUSPP)
-        
+    # Obtenemos el número de clusters en relación al número de porcentajes en este caso    
     num_clusters = len(porcentajes)
+    # Creamos una lista con valores desde el 0 al número de clusters - 1
     x = np.arange(num_clusters)
 
-    # Nombres de las etiquetas de los clusters
+    # Nombres de las etiquetas de cada uno de los clusters
     labels = [f'Cluster {i+1}' for i in range(num_clusters)]
 
     # Ancho de las barras
     width = 0.25
     
+    # Obtenemos los valores de los porcentajes en cada columna
     porcentaje_PSEUSPP = [p[0] for p in porcentajes]
     porcentaje_GYMNCATE = [p[1] for p in porcentajes]
 
@@ -251,7 +281,9 @@ def tsne_01():
     ax.set_title('Modelo t-SNE')
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
-
+    
+    # Establecemos el valor mínimo y máximo además del intervalo de las lineas 
+    # del eje Y
     yticks_interval = 20
     ylim_min = 0
     ylim_max = 100
@@ -280,6 +312,8 @@ def tsne_01():
             c=[cmap(i)],
             label=f"Cluster {i+1}",
         )
+        
+    # Dibuja los centroides
     ax.scatter(
         centroids_pca[:, 0],
         centroids_pca[:, 1],
@@ -290,6 +324,7 @@ def tsne_01():
         label="Centroides (t-SNE)",
     )
 
+    # Establecemos las etiquetas y el título
     ax.set_xlabel("Componente1")
     ax.set_ylabel("Componente2")
     ax.set_zlabel("Componente3")
@@ -301,6 +336,7 @@ def tsne_01():
 
 ```python
 def main():
+    # Llamada a las dos funciones y las mostramos
     pca_01()
     tsne_01()
     plt.show()
